@@ -11,7 +11,7 @@ node('ubuntu') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("nimrods8/helloIsrael")
+        app = docker.build("nimrods8/helloisrael")
     }
 
     stage('Test image') {
