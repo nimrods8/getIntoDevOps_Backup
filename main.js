@@ -3,7 +3,7 @@ var http = require('http');
 
 // configure our HTTP server
 var server = http.createServer(function (request, response) {
-  response.writeHead(200, {"Content-Type": "text/plain"});
+  response.writeHead(200, {"Content-Type": "text/html"});
   response.end("<h1>Hello getintodevops.com\n</h1>");
 });
 
